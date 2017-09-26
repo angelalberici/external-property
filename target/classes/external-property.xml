@@ -23,7 +23,13 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
             <fixed-frequency-scheduler frequency="100000"/>
             <component class="main.LoadExternalFile" doc:name="Java"/>
         </poll>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
+        <dw:transform-message doc:name="Variables can be managed here">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+payload]]></dw:set-payload>
+        </dw:transform-message>
+
         <logger message="external-property - #[payload]" level="INFO" doc:name="Logger"/>
     </flow>
 </mule>
