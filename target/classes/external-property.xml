@@ -27,8 +27,18 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/java
 ---
-payload]]></dw:set-payload>
+{
+	db-config-example : {
+	"dbHost": payload.dbHost,
+	"dbPort": payload.dbPort,
+	"dbName": payload.dbName,
+	"dbUser": payload.dbUser,
+	"dbPassword": payload.dbPassword
+	
+	}
+}]]></dw:set-payload>
         </dw:transform-message>
+        <json:object-to-json-transformer doc:name="Object to JSON"/>
 
         <logger message="external-property - #[payload]" level="INFO" doc:name="Logger"/>
     </flow>
